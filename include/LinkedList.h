@@ -330,33 +330,38 @@ template <typename T>
 void linkedlist::singlelink::ListController<T>::append2D(T value, int row, bool keepDims, T padVal) {
 	linkedlist::singlelink::DataNode<T>* currentNode = listHead;
 
-	for (int i = 0; i < size; i++) {
-		if ((keepDims) && (i != row)) {
-			T* currentColNode = currentNode->getValue();
+	if (row == -1) {
+		append(value);
+	}
+	else {
+		for (int i = 0; i < size; i++) {
+			if ((keepDims) && (i != row)) {
+				T* currentColNode = currentNode->getValue();
 
-			while (currentColNode->getNextNode() != nullptr) {
-				currentColNode = currentColNode->getNextNode();
+				while (currentColNode->getNextNode() != nullptr) {
+					currentColNode = currentColNode->getNextNode();
+				}
+
+				T* valueAddr = new T(padVal);
+
+				currentColNode->addDataNode(valueAddr);
 			}
 
-			T* valueAddr = new T(padVal);
+			if (i == row) {
+				T* currentColNode = currentNode->getValue();
 
-			currentColNode->addDataNode(valueAddr);
-		}
+				while (currentColNode->getNextNode() != nullptr) {
+					currentColNode = currentColNode->getNextNode();
+				}
 
-		if (i == row) {
-			T* currentColNode = currentNode->getValue();
+				T* valueAddr = new T(value);
 
-			while (currentColNode->getNextNode() != nullptr) {
-				currentColNode = currentColNode->getNextNode();
+				currentColNode->addDataNode(valueAddr);
 			}
 
-			T* valueAddr = new T(value);
+			currentNode = currentNode->getNextNode();
 
-			currentColNode->addDataNode(valueAddr);
 		}
-
-		currentNode = currentNode->getNextNode();
-
 	}
 }
 

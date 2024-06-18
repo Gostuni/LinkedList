@@ -8,9 +8,17 @@ int main() {
 
 	std::cout << llOne << std::endl;
 
-	llOne.append2D(2, 0, false);
+	llOne.append2D(2);
 
 	std::cout << llOne << std::endl;
+
+	ListController<int> llTwo(5, 0);
+
+	std::cout << llTwo << std::endl;
+
+	llTwo.append(6);
+
+	std::cout << llTwo << std::endl;
 
 	return 0;
 	
