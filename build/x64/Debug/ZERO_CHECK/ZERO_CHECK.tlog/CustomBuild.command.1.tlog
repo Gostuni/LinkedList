@@ -1,0 +1,10 @@
+^C:\USERS\OSTUNID\DOCUMENTS\PROJECTS\C++\LIBRARIES\LINKEDLIST\LINKEDLIST\BUILD\CMAKEFILES\F9CF2D38E45E2D341958C4E808ADAC73\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/LinkedList -BC:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/LinkedList/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/LinkedList/build/LibTest.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

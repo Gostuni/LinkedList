@@ -4,9 +4,11 @@
 using namespace linkedlist::singlelink;
 
 int main() {
-	DataNode<int> nodeOne(1);
-	DataNode<int> nodeTwo(2);
-	ListController<int> llOne = ListController<int>(&nodeOne, &nodeTwo);
+	ListController<DataNode<int>> llOne(4, 1, 0);
+
+	std::cout << llOne << std::endl;
+
+	llOne.append2D(2, 0, false);
 
 	std::cout << llOne << std::endl;
 

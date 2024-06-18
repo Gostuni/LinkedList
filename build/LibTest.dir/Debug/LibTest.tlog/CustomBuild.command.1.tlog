@@ -1,0 +1,10 @@
+^C:\USERS\OSTUNID\DOCUMENTS\PROJECTS\C++\LIBRARIES\LINKEDLIST\LINKEDLIST\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/LinkedList -BC:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/LinkedList/build --check-stamp-file C:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/LinkedList/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
