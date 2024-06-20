@@ -4,20 +4,18 @@
 using namespace linkedlist::singlelink;
 
 int main() {
-	DataNode<int> d4(100);
 
-	DataNode<int> d3(10);
-	d3.addDataNode(&d4);
+	ListController<int> listOne(10, 10, 0);
 
-	DataNode<int> d2(5, &d3);
+	std::cout << listOne << std::endl;
 
-	DataNode<int> d1;
-	d1.setValue(1);
-	d1.setNextNode(&d2);
+	std::cout << listOne[0] << std::endl;
 
-	std::cout << d1 << std::endl;
+	std::cout << '\n';
 
-	std::cout << d1[3] << std::endl;
+	*listOne[0][0] = 9;
+
+	std::cout << listOne[0][0] << std::endl;
 
 	return 0;
 	
