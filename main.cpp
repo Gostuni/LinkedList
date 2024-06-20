@@ -4,21 +4,20 @@
 using namespace linkedlist::singlelink;
 
 int main() {
-	ListController<DataNode<int>> llOne(4, 1, 0);
+	DataNode<int> d4(100);
 
-	std::cout << llOne << std::endl;
+	DataNode<int> d3(10);
+	d3.addDataNode(&d4);
 
-	llOne.append2D(2);
+	DataNode<int> d2(5, &d3);
 
-	std::cout << llOne << std::endl;
+	DataNode<int> d1;
+	d1.setValue(1);
+	d1.setNextNode(&d2);
 
-	ListController<int> llTwo(5, 0);
+	std::cout << d1 << std::endl;
 
-	std::cout << llTwo << std::endl;
-
-	llTwo.append(6);
-
-	std::cout << llTwo << std::endl;
+	std::cout << d1[3] << std::endl;
 
 	return 0;
 	
