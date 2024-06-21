@@ -141,7 +141,7 @@ namespace linkedlist {
 					return outStream;
 				}
 
-				DataNode<T> operator[](int index) {
+				DataNode<T>* operator[](int index) {
 					DataNode<DataNode<T>>* rowNode = listHead;
 
 					if (multiDim) {
@@ -149,11 +149,10 @@ namespace linkedlist {
 							rowNode = rowNode->getNextNode();
 						}
 
-						return *rowNode->getValue();
-					} else {
-						DataNode<T>* rowHead = rowNode->getValue();
-						return rowHead[index];
+						return rowNode->getValue();
 					}
+
+					return (*rowNode->getValue())[index];
 				}
 		};
 
@@ -214,6 +213,10 @@ void linkedlist::singlelink::DataNode<T>::setValue(T nodeValue) {
 
 template <typename T>
 void linkedlist::singlelink::DataNode<T>::setValue(T* nodeValue) {
+	//if (value != nullptr) {
+	//	std::cout << "Old value: " << *value << std::endl;;
+	//}
+
 	value = nodeValue;
 }
 
