@@ -144,11 +144,16 @@ namespace linkedlist {
 				DataNode<T> operator[](int index) {
 					DataNode<DataNode<T>>* rowNode = listHead;
 
-					for (int i = 0; i < index; i++) {
-						rowNode = rowNode->getNextNode();
-					}
+					if (multiDim) {
+						for (int i = 0; i < index; i++) {
+							rowNode = rowNode->getNextNode();
+						}
 
-					return *rowNode->getValue();
+						return *rowNode->getValue();
+					} else {
+						DataNode<T>* rowHead = rowNode->getValue();
+						return rowHead[index];
+					}
 				}
 		};
 
