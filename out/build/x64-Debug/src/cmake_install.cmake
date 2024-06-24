@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/LinkedList/src
+# Install script for directory: C:/Users/Daniel/Documents/Projects/C++/Libraries/LinkedList/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/LinkedList/out/install/x64-Debug")
+  set(CMAKE_INSTALL_PREFIX "C:/Users/Daniel/Documents/Projects/C++/Libraries/LinkedList/out/install/x64-Debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

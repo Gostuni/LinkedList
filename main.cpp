@@ -4,16 +4,16 @@
 using namespace linkedlist::singlelink;
 
 int main() {
+	ListController<int> listOne(200, 200, 0);
 
-	ListController<int> listOne(10, 10, 1);
+	int value = 1;
 
-	std::cout << listOne << std::endl;
-
-	DataNode<int>* d = &listOne[0][1];
-
-	std::cout << d << std::endl;
-
-	std::cout << listOne << std::endl;
+	for (int i = 0; i < listOne.getSize(); i++) {
+		for (int j = 0; j < listOne.getRowSize(); j++) {
+			listOne[i][j] = value;
+			value += 1;
+		}
+	}
 
 	return 0;
 	

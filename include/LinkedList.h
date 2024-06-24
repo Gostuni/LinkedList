@@ -37,43 +37,31 @@ namespace linkedlist {
 				T* getValue();
 
 				//Overloaded operators
-				friend std::ostream& operator<<(std::ostream& outStream, DataNode<T>* node) {
-					T* nodeVal = node->getValue();
-
-					if (nodeVal == nullptr) {
-						outStream << ' ' << ' ';
-					} else {
-						outStream << *nodeVal << ' ';
-					}
-
-					return outStream;
-				}
+				DataNode<T>& operator[](int index);
+				void operator=(T newValue);
 
 				friend std::ostream& operator<<(std::ostream& outStream, DataNode<T>& node) {
-					T* nodeVal = node.getValue();
+					T* nodeValue = node.getValue();
 
-					if (nodeVal == nullptr) {
+					if (nodeValue == nullptr) {
 						outStream << ' ' << ' ';
 					} else {
-						outStream << *nodeVal << ' ';
+						outStream << *nodeValue << ' ';
 					}
 
 					return outStream;
 				}
 
-				DataNode<T>* operator[](int index) {
-					DataNode<T>* currentDataNode = this;
+				friend std::ostream& operator<<(std::ostream& outStream, DataNode<T>* node) {
+					DataNode<T>* currentColNode = node;
 
-					for (int i = 0; i < index; i++) {
-						currentDataNode = currentDataNode->getNextNode();
+					while (currentColNode != nullptr) {
+						outStream << *currentColNode->getValue() << ' ';
+
+						currentColNode = currentColNode->getNextNode();
 					}
-					
-					return currentDataNode;
-				}
 
-				void operator=(T newValue) {
-					T* newValueAddr = new T(newValue);
-					setValue(newValueAddr);
+					return outStream;
 				}
 
 		};
@@ -110,6 +98,8 @@ namespace linkedlist {
 				DataNode<DataNode<T>>* getListTail();
 
 				//Overloaded operators
+				DataNode<T>& operator[](int index);
+
 				friend std::ostream& operator<<(std::ostream& outStream, ListController<T>& lc) {
 					DataNode<DataNode<T>>* rowNode = lc.getListHead();
 					DataNode<T>* currentColNode = nullptr;
@@ -118,21 +108,17 @@ namespace linkedlist {
 						while (rowNode != nullptr) {
 							currentColNode = rowNode->getValue();
 
-							while (currentColNode->getNextNode() != nullptr) {
-								outStream << currentColNode;
+							outStream << currentColNode;
 
-								currentColNode = currentColNode->getNextNode();
-							}
-
-							outStream << currentColNode << '\n';
+							outStream << '\n';
 
 							rowNode = rowNode->getNextNode();
 						}
 					} else {
 						currentColNode = rowNode->getValue();
 
-						while (currentColNode->getNextNode() != nullptr) {
-							outStream << currentColNode;
+						while (currentColNode != nullptr) {
+							outStream << *currentColNode;
 
 							currentColNode = currentColNode->getNextNode();
 						}
@@ -141,19 +127,6 @@ namespace linkedlist {
 					return outStream;
 				}
 
-				DataNode<T>* operator[](int index) {
-					DataNode<DataNode<T>>* rowNode = listHead;
-
-					if (multiDim) {
-						for (int i = 0; i < index; i++) {
-							rowNode = rowNode->getNextNode();
-						}
-
-						return rowNode->getValue();
-					}
-
-					return (*rowNode->getValue())[index];
-				}
 		};
 
 	}
@@ -202,6 +175,7 @@ linkedlist::singlelink::DataNode<T>::DataNode(T nodeValue, DataNode<T>* nodePtrN
 
 template <typename T>
 void linkedlist::singlelink::DataNode<T>::setValue(T nodeValue) {
+	
 	T* valPtr = new T(nodeValue);
 
 	if (value != nullptr) {
@@ -213,9 +187,9 @@ void linkedlist::singlelink::DataNode<T>::setValue(T nodeValue) {
 
 template <typename T>
 void linkedlist::singlelink::DataNode<T>::setValue(T* nodeValue) {
-	//if (value != nullptr) {
-	//	std::cout << "Old value: " << *value << std::endl;;
-	//}
+	if (value != nullptr) {
+		delete value;
+	}
 
 	value = nodeValue;
 }
@@ -248,6 +222,30 @@ linkedlist::singlelink::DataNode<T>* linkedlist::singlelink::DataNode<T>::getNex
 template <typename T>
 T* linkedlist::singlelink::DataNode<T>::getValue() {
 	return value;
+}
+
+//-------Operators-------//
+
+template <typename T>
+linkedlist::singlelink::DataNode<T>& linkedlist::singlelink::DataNode<T>::operator[](int index) {
+	DataNode<T>* currentDataNode = this;
+
+	for (int i = 0; i < index; i++) {
+		currentDataNode = currentDataNode->getNextNode();
+
+		if (currentDataNode == nullptr) {
+			exit(139);
+		}
+	}
+
+	return *currentDataNode;
+}
+
+template <typename T>
+void linkedlist::singlelink::DataNode<T>::operator=(T newValue) {
+	T* valueAddr = new T(newValue);
+
+	setValue(valueAddr);
 }
 
 /**********************************************************************************************************/
@@ -448,4 +446,21 @@ linkedlist::singlelink::DataNode<linkedlist::singlelink::DataNode<T>>* linkedlis
 template <typename T>
 linkedlist::singlelink::DataNode<linkedlist::singlelink::DataNode<T>>* linkedlist::singlelink::ListController<T>::getListTail() {
 	return listTail;
+}
+
+//-------Operators-------//
+
+template <typename T>
+linkedlist::singlelink::DataNode<T>& linkedlist::singlelink::ListController<T>::operator[](int index) {
+	DataNode<DataNode<T>>* rowNode = listHead;
+	
+	if (multiDim) {
+		for (int i = 0; i < index; i++) {
+			rowNode = rowNode->getNextNode();
+		}
+
+		return *rowNode->getValue();
+	} else {
+		return (*rowNode->getValue())[index];
+	}
 }

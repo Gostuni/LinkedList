@@ -1,0 +1,7 @@
+# ninja log v5
+5	216	7407279026915437	src/CMakeFiles/LinkedList.dir/LinkedList.cpp.obj	867c2dbccce82526
+3	231	7407279027045467	CMakeFiles/LibTest.dir/main.cpp.obj	94da153a5628e672
+217	240	7407279027135493	src/LinkedList.lib	84370f149c604eb9
+240	426	7407279028736895	LibTest.exe	94637df5ebeb9599
+11	230	7407280716123638	CMakeFiles/LibTest.dir/main.cpp.obj	94da153a5628e672
+231	323	7407280716693767	LibTest.exe	94637df5ebeb9599

@@ -1,6 +1,6 @@
-C:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/LinkedList/out/build/x64-Debug/CMakeFiles/LibTest.dir
-C:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/LinkedList/out/build/x64-Debug/CMakeFiles/edit_cache.dir
-C:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/LinkedList/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
-C:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/LinkedList/out/build/x64-Debug/src/CMakeFiles/LinkedList.dir
-C:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/LinkedList/out/build/x64-Debug/src/CMakeFiles/edit_cache.dir
-C:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/LinkedList/out/build/x64-Debug/src/CMakeFiles/rebuild_cache.dir
+C:/Users/Daniel/Documents/Projects/C++/Libraries/LinkedList/out/build/x64-Debug/CMakeFiles/LibTest.dir
+C:/Users/Daniel/Documents/Projects/C++/Libraries/LinkedList/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+C:/Users/Daniel/Documents/Projects/C++/Libraries/LinkedList/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Daniel/Documents/Projects/C++/Libraries/LinkedList/out/build/x64-Debug/src/CMakeFiles/LinkedList.dir
+C:/Users/Daniel/Documents/Projects/C++/Libraries/LinkedList/out/build/x64-Debug/src/CMakeFiles/edit_cache.dir
+C:/Users/Daniel/Documents/Projects/C++/Libraries/LinkedList/out/build/x64-Debug/src/CMakeFiles/rebuild_cache.dir

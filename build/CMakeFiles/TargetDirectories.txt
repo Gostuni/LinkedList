@@ -1,4 +1,0 @@
-C:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/LinkedList/build/CMakeFiles/LibTest.dir
-C:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/LinkedList/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/LinkedList/build/CMakeFiles/ZERO_CHECK.dir
-C:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/LinkedList/build/src/CMakeFiles/LinkedList.dir
