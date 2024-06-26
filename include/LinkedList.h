@@ -17,110 +17,87 @@ namespace linkedlist {
 		template <typename T>
 		class DataNode {
 
-			private:
-				DataNode<T>* nextNode;
-				T* value;
+		private:
+			DataNode<T>* nextNode;
+			DataNode<T>* bottomNode;
+			T value;
 
-			public:
-				DataNode();
-				DataNode(T nodeValue);
-				DataNode(T* nodeValue);
-				DataNode(T nodeValue, DataNode<T>* nodePtrNext);
-				
-				void setValue(T nodeValue);
-				void setValue(T* nodeValue);
-				void setNextNode(DataNode<T>* nodePtrNext);
-				void addDataNode(DataNode<T>* nodePtrNew);
-				void deleteValue();
+		public:
+			DataNode();
+			DataNode(T nodeValue);
+			DataNode(T nodeValue, DataNode<T>* nodePtrNext);
+			DataNode(T nodeValue, DataNode<T>* nodePtrNext, DataNode<T>* nodePtrBottom);
 
-				DataNode<T>* getNextNode();
-				T* getValue();
+			void setValue(T nodeValue);
+			void setNextNode(DataNode<T>* nodePtrNext);
+			void setBottomNode(DataNode<T>* nodePtrBottom);
+			void addNode(DataNode<T>* nodePtrNew);
 
-				//Overloaded operators
-				DataNode<T>& operator[](int index);
-				void operator=(T newValue);
+			T getValue();
+			DataNode<T>* getNextNode();
+			DataNode<T>* getBottomNode();
 
-				friend std::ostream& operator<<(std::ostream& outStream, DataNode<T>& node) {
-					T* nodeValue = node.getValue();
+			//Overloaded operators
+			DataNode<T>& operator[](int index);
+			void operator=(T newValue);
+			friend std::ostream& operator<<(std::ostream& outStream, DataNode<T>& node) {
+				T nodeValue = node.getValue();
 
-					if (nodeValue == nullptr) {
-						outStream << ' ' << ' ';
-					} else {
-						outStream << *nodeValue << ' ';
-					}
-
-					return outStream;
+				if (!nodeValue) {
+					outStream << ' ' << ' ';
+				} else {
+					outStream << nodeValue << ' ';
 				}
 
-				friend std::ostream& operator<<(std::ostream& outStream, DataNode<T>* node) {
-					DataNode<T>* currentColNode = node;
-
-					while (currentColNode != nullptr) {
-						outStream << *currentColNode->getValue() << ' ';
-
-						currentColNode = currentColNode->getNextNode();
-					}
-
-					return outStream;
-				}
+				return outStream;
+			}
 
 		};
 
-		//ListController class
+		//List class
 		template <typename T>
-		class ListController {
+		class List {
 
 			private:
 				int size;
 				bool multiDim = false;
 
-				DataNode<DataNode<T>>* listHead;
-				DataNode<DataNode<T>>* listTail;
+				DataNode<T>* listHead;
+				DataNode<T>* listTail;
 
 			public:
-				ListController();
-				ListController(int length, T padValue);
-				ListController(int rowSize, int colSize, T padValue);
-				ListController(DataNode<DataNode<T>>* nodePtrHead);
-				ListController(DataNode<DataNode<T>>* nodePtrHead, DataNode<DataNode<T>>* nodePtrTail);
+				List();
+				List(int length, T padValue);
+				List(int rowSize, int colSize, T padValue);
+				List(DataNode<T>* nodePtrHead);
+				List(DataNode<T>* nodePtrHead, DataNode<T>* nodePtrTail);
 
-				void setListHead(DataNode<DataNode<T>>* nodePtrHead);
-				void setListTail(DataNode<DataNode<T>>* nodePtrTail);
+				void setListHead(DataNode<T>* nodePtrHead);
+				void setListTail(DataNode<T>* nodePtrTail);
 				void setMultiDim(bool isMultiDim);
-				void addElement(DataNode<DataNode<T>>* nodePtrNew);
+				void addElement(DataNode<T>* nodePtrNew);
 				void append(T newValue);
 				void append2D(T newValue, int row = 0, bool keepDims = true, T padValue = T());
 
 				int getSize();
 				int getRowSize(int row = 0);
 				bool getMultiDim();
-				DataNode<DataNode<T>>* getListHead();
-				DataNode<DataNode<T>>* getListTail();
+				DataNode<T>* getListHead();
+				DataNode<T>* getListTail();
 
 				//Overloaded operators
 				DataNode<T>& operator[](int index);
 
-				friend std::ostream& operator<<(std::ostream& outStream, ListController<T>& lc) {
-					DataNode<DataNode<T>>* rowNode = lc.getListHead();
-					DataNode<T>* currentColNode = nullptr;
+				friend std::ostream& operator<<(std::ostream& outStream, List<T>& list) {
+					DataNode<T>* currentNode = list.getListHead();
 
-					if (lc.getMultiDim()) {
-						while (rowNode != nullptr) {
-							currentColNode = rowNode->getValue();
+					if (list.getMultiDim()) {
 
-							outStream << currentColNode;
-
-							outStream << '\n';
-
-							rowNode = rowNode->getNextNode();
-						}
 					} else {
-						currentColNode = rowNode->getValue();
+						while (currentNode != nullptr) {
+							outStream << currentNode->getValue() << ' ';
 
-						while (currentColNode != nullptr) {
-							outStream << *currentColNode;
-
-							currentColNode = currentColNode->getNextNode();
+							currentNode = currentNode->getNextNode();
 						}
 					}
 
@@ -142,55 +119,35 @@ namespace linkedlist {
 template <typename T>
 linkedlist::singlelink::DataNode<T>::DataNode() {
 	nextNode = nullptr;
-
-	value = nullptr;
+	bottomNode = nullptr;
+	value = NULL;
 }
 
 template <typename T>
 linkedlist::singlelink::DataNode<T>::DataNode(T nodeValue) {
 	nextNode = nullptr;
-
-	T* valPtr = new T(nodeValue);
-
-	value = valPtr;
-}
-
-template <typename T>
-linkedlist::singlelink::DataNode<T>::DataNode(T* nodeValue) {
-	nextNode = nullptr;
-
+	bottomNode = nullptr;
 	value = nodeValue;
 }
 
 template <typename T>
 linkedlist::singlelink::DataNode<T>::DataNode(T nodeValue, DataNode<T>* nodePtrNext) {
 	nextNode = nodePtrNext;
+	bottomNode = nullptr;
+	value = nodeValue;
+}
 
-	T* valPtr = new T(nodeValue);
-
-	value = valPtr;
+template <typename T>
+linkedlist::singlelink::DataNode<T>::DataNode(T nodeValue, DataNode<T>* nodePtrNext, DataNode<T>* nodePtrBottom) {
+	nextNode = nodePtrNext;
+	bottomNode = nodePtrBottom;
+	value = nodeValue;
 }
 
 //-------Methods-------//
 
 template <typename T>
 void linkedlist::singlelink::DataNode<T>::setValue(T nodeValue) {
-	
-	T* valPtr = new T(nodeValue);
-
-	if (value != nullptr) {
-		delete value;
-	}
-
-	value = valPtr;
-}
-
-template <typename T>
-void linkedlist::singlelink::DataNode<T>::setValue(T* nodeValue) {
-	if (value != nullptr) {
-		delete value;
-	}
-
 	value = nodeValue;
 }
 
@@ -200,7 +157,12 @@ void linkedlist::singlelink::DataNode<T>::setNextNode(DataNode<T>* nodePtrNext) 
 }
 
 template <typename T>
-void linkedlist::singlelink::DataNode<T>::addDataNode(DataNode<T>* nodePtrNew) {
+void linkedlist::singlelink::DataNode<T>::setBottomNode(DataNode<T>* nodePtrBottom) {
+	bottomNode = nodePtrBottom;
+}
+
+template <typename T>
+void linkedlist::singlelink::DataNode<T>::addNode(DataNode<T>* nodePtrNew) {
 	if (nextNode == nullptr) {
 		nextNode = nodePtrNew;
 	} else {
@@ -210,8 +172,8 @@ void linkedlist::singlelink::DataNode<T>::addDataNode(DataNode<T>* nodePtrNew) {
 }
 
 template <typename T>
-void linkedlist::singlelink::DataNode<T>::deleteValue() {
-	delete value;
+T linkedlist::singlelink::DataNode<T>::getValue() {
+	return value;
 }
 
 template <typename T>
@@ -220,32 +182,30 @@ linkedlist::singlelink::DataNode<T>* linkedlist::singlelink::DataNode<T>::getNex
 }
 
 template <typename T>
-T* linkedlist::singlelink::DataNode<T>::getValue() {
-	return value;
+linkedlist::singlelink::DataNode<T>* linkedlist::singlelink::DataNode<T>::getBottomNode() {
+	return bottomNode;
 }
 
 //-------Operators-------//
 
 template <typename T>
 linkedlist::singlelink::DataNode<T>& linkedlist::singlelink::DataNode<T>::operator[](int index) {
-	DataNode<T>* currentDataNode = this;
+	DataNode<T>* currentNode = this;
 
 	for (int i = 0; i < index; i++) {
-		currentDataNode = currentDataNode->getNextNode();
+		currentNode = currentNode->getNextNode();
 
-		if (currentDataNode == nullptr) {
+		if (currentNode == nullptr) {
 			exit(139);
 		}
 	}
 
-	return *currentDataNode;
+	return *currentNode;
 }
 
 template <typename T>
 void linkedlist::singlelink::DataNode<T>::operator=(T newValue) {
-	T* valueAddr = new T(newValue);
-
-	setValue(valueAddr);
+	setValue(newValue);
 }
 
 /**********************************************************************************************************/
@@ -255,68 +215,41 @@ void linkedlist::singlelink::DataNode<T>::operator=(T newValue) {
 //-------Constructors-------//
 
 template <typename T>
-linkedlist::singlelink::ListController<T>::ListController() {
+linkedlist::singlelink::List<T>::List() {
 	size = 0;
-
 	listHead = nullptr;
 	listTail = nullptr;
 }
 
 template <typename T>
-linkedlist::singlelink::ListController<T>::ListController(int length, T padValue) {
+linkedlist::singlelink::List<T>::List(int length, T padValue) {
 	size = 0;
-
 	listHead = nullptr;
 	listTail = nullptr;
 
-	DataNode<DataNode<T>>* rowNode = new DataNode<DataNode<T>>();
-	DataNode<T>* rowTailNode = new DataNode<T>(padValue);
-	rowNode->setValue(rowTailNode);
-	addElement(rowNode);
-
-	for (int i = 0; i < (length - 1); i++) {
-		DataNode<T>* valueNode = new DataNode<T>(padValue);
-		
-		rowTailNode->addDataNode(valueNode);
-
-		size += 1;
-
-		rowTailNode = valueNode;
+	for (int i = 0; i < length; i++) {
+		DataNode<T>* newNode = new DataNode<T>(padValue);
+		addElement(newNode);
 	}
 }
 
 template <typename T>
-linkedlist::singlelink::ListController<T>::ListController(int rowSize, int colSize, T padValue) {
+linkedlist::singlelink::List<T>::List(int rowSize, int colSize, T padValue) {
 	size = 0;
 	multiDim = true;
-
 	listHead = nullptr;
 	listTail = nullptr;
-
-	for (int i = 0; i < rowSize; i++) {
-		DataNode<DataNode<T>>* rowNode = new DataNode<DataNode<T>>();
-		DataNode<T>* colTailNode = new DataNode<T>(padValue);
-		rowNode->setValue(colTailNode);
-		addElement(rowNode);
-
-		for (int j = 0; j < (colSize - 1); j++) {
-			DataNode<T>* newColNode = new DataNode<T>(padValue);
-			colTailNode->addDataNode(newColNode);
-			colTailNode = newColNode;
-		}
-	}
 }
 
 template <typename T>
-linkedlist::singlelink::ListController<T>::ListController(DataNode<DataNode<T>>* nodePtrHead) {
+linkedlist::singlelink::List<T>::List(DataNode<T>* nodePtrHead) {
 	size = 1;
-
 	listHead = nodePtrHead;
 	listTail = nodePtrHead;
 }
 
 template <typename T>
-linkedlist::singlelink::ListController<T>::ListController(DataNode<DataNode<T>>* nodePtrHead, DataNode<DataNode<T>>* nodePtrTail) {
+linkedlist::singlelink::List<T>::List(DataNode<T>* nodePtrHead, DataNode<T>* nodePtrTail) {
 	if (nodePtrHead == nodePtrTail) {
 		size = 1;
 	} else {
@@ -330,26 +263,34 @@ linkedlist::singlelink::ListController<T>::ListController(DataNode<DataNode<T>>*
 /*-------Methods-------*/
 
 template <typename T>
-void linkedlist::singlelink::ListController<T>::setListHead(DataNode<DataNode<T>>* nodePtrHead) {
+void linkedlist::singlelink::List<T>::setListHead(DataNode<T>* nodePtrHead) {
+	if (listHead != nullptr) {
+		delete listHead;
+	}
+
 	listHead = nodePtrHead;
 }
 
 template <typename T>
-void linkedlist::singlelink::ListController<T>::setListTail(DataNode<DataNode<T>>* nodePtrTail) {
-	listTail = nodeptrTail;
+void linkedlist::singlelink::List<T>::setListTail(DataNode<T>* nodePtrTail) {
+	if (listTail != nullptr) {
+		delete listTail;
+	}
+
+	listTail = nodePtrTail;
 }
 
 template <typename T>
-void linkedlist::singlelink::ListController<T>::setMultiDim(bool isMultiDim) {
+void linkedlist::singlelink::List<T>::setMultiDim(bool isMultiDim) {
 	multiDim = isMultiDim;
 }
 
 template <typename T>
-void linkedlist::singlelink::ListController<T>::addElement(DataNode<DataNode<T>>* nodePtrNew) {
+void linkedlist::singlelink::List<T>::addElement(DataNode<T>* nodePtrNew) {
 	if (listHead == nullptr) {
 		listHead = nodePtrNew;
 	} else {
-		listTail->addDataNode(nodePtrNew);
+		listTail->addNode(nodePtrNew);
 	}
 
 	listTail = nodePtrNew;
@@ -357,110 +298,51 @@ void linkedlist::singlelink::ListController<T>::addElement(DataNode<DataNode<T>>
 }
 
 template <typename T>
-void linkedlist::singlelink::ListController<T>::append(T newValue) {
+void linkedlist::singlelink::List<T>::append(T newValue) {
 	DataNode<T>* valueNode = new DataNode<T>(newValue);
 
-	if (multiDim) {
-		DataNode<DataNode<T>>* listNode = new DataNode<DataNode<T>>(valueNode);
-
-		addElement(listNode);
-	} else {
-		DataNode<T>* currentColNode = listHead->getValue();
-
-		while (currentColNode->getNextNode() != nullptr) {
-			currentColNode = currentColNode->getNextNode();
-		}
-
-		currentColNode->addDataNode(valueNode);
-
-		size += 1;
-	}
+	addElement(valueNode);
 }
 
 template <typename T>
-void linkedlist::singlelink::ListController<T>::append2D(T newValue, int row, bool keepDims, T padValue) {
-	DataNode<DataNode<T>>* rowNode = listHead;
-	DataNode<T>* currentColNode = nullptr;
+void linkedlist::singlelink::List<T>::append2D(T newValue, int row, bool keepDims, T padValue) {
 
-	for (int i = 0; i < size; i++) {
-		int rowIndex = 0;
-		currentColNode = rowNode->getValue();
-
-		while (currentColNode->getNextNode() != nullptr) {
-			currentColNode = currentColNode->getNextNode();
-			rowIndex += 1;
-		}
-
-		if ((i != row) && (keepDims)) {
-			DataNode<T>* padNode = new DataNode<T>(padValue);
-			currentColNode->addDataNode(padNode);
-		}
-		else if (i == row) {
-			DataNode<T>* valueNode = new DataNode<T>(newValue);
-			currentColNode->addDataNode(valueNode);
-		}
-
-		rowNode = rowNode->getNextNode();
-	}
 }
 
 template <typename T>
-int linkedlist::singlelink::ListController<T>::getSize() {
+int linkedlist::singlelink::List<T>::getSize() {
 	return size;
 }
 
 template <typename T>
-int linkedlist::singlelink::ListController<T>::getRowSize(int row) {
-	if (multiDim) {
-		DataNode<DataNode<T>>* rowNode = listHead;
-
-		for (int i = 0; i < row; i++) {
-			rowNode = rowNode->getNextNode();
-		}
-
-		DataNode<T>* currentColNode = rowNode->getValue();
-		int rowSize = 1;
-
-		while (currentColNode->getNextNode() != nullptr) {
-			currentColNode = currentColNode->getNextNode();
-			rowSize += 1;
-		}
-
-		return rowSize;
-
-	} else {
-		return size;
-	}
+int linkedlist::singlelink::List<T>::getRowSize(int row) {
+	return 0;
 }
 
 template <typename T>
-bool linkedlist::singlelink::ListController<T>::getMultiDim() {
+bool linkedlist::singlelink::List<T>::getMultiDim() {
 	return multiDim;
 }
 
 template <typename T>
-linkedlist::singlelink::DataNode<linkedlist::singlelink::DataNode<T>>* linkedlist::singlelink::ListController<T>::getListHead() {
+linkedlist::singlelink::DataNode<T>* linkedlist::singlelink::List<T>::getListHead() {
 	return listHead;
 }
 
 template <typename T>
-linkedlist::singlelink::DataNode<linkedlist::singlelink::DataNode<T>>* linkedlist::singlelink::ListController<T>::getListTail() {
+linkedlist::singlelink::DataNode<T>* linkedlist::singlelink::List<T>::getListTail() {
 	return listTail;
 }
 
 //-------Operators-------//
 
 template <typename T>
-linkedlist::singlelink::DataNode<T>& linkedlist::singlelink::ListController<T>::operator[](int index) {
-	DataNode<DataNode<T>>* rowNode = listHead;
-	
-	if (multiDim) {
-		for (int i = 0; i < index; i++) {
-			rowNode = rowNode->getNextNode();
-		}
+linkedlist::singlelink::DataNode<T>& linkedlist::singlelink::List<T>::operator[](int index) {
+	DataNode<T>* currentNode = listHead;
 
-		return *rowNode->getValue();
+	if (multiDim) {
+
 	} else {
-		return (*rowNode->getValue())[index];
+		return (*currentNode)[index];
 	}
 }

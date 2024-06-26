@@ -9,8 +9,10 @@
   },
   "ExpandedNodes": [
     "",
-    "\\include"
+    "\\include",
+    "\\include\\Backup",
+    "\\include\\Backup\\V1"
   ],
-  "SelectedNode": "\\CMakeLists.txt",
+  "SelectedNode": "\\include\\LinkedList.h",
   "PreviewInSolutionExplorer": false
 }

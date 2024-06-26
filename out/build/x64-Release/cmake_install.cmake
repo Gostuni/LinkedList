@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/Daniel/Documents/Projects/C++/Libraries/LinkedList
+# Install script for directory: C:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Users/Daniel/Documents/Projects/C++/Libraries/LinkedList/out/install/x64-Release")
+  set(CMAKE_INSTALL_PREFIX "C:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/out/install/x64-Release")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,7 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/Daniel/Documents/Projects/C++/Libraries/LinkedList/out/build/x64-Release/src/cmake_install.cmake")
+  include("C:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/out/build/x64-Release/src/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/Daniel/Documents/Projects/C++/Libraries/LinkedList/out/build/x64-Release/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/ostunid/Documents/Projects/C++/Libraries/LinkedList/out/build/x64-Release/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
